@@ -12,6 +12,9 @@ const MenuComponent = () => {
       <li className="cursor-pointer">
         <a href="/">Perfil</a>
       </li>
+      <li className="cursor-pointer">
+        <a href="/">Registrarse</a>
+      </li>
     </ul>
   );
 };
