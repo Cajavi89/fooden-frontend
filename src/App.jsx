@@ -1,24 +1,24 @@
 import React from 'react';
-import CardRestaurant from './Components/CardRestaurant';
-import Categories from './Components/Categories';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from './Components/Header';
-import LogoComponent from './Components/LogoComponent';
-import TitleSection from './Components/TitleSection';
-import WhereToday from './Components/WhereToday';
-import Footer from './Components/Footer';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import RegisterForm from './Components/RegisterForm';
+import RegisterSuccess from './Components/RegisterSuccess';
+import LoginForm from './Components/LoginForm';
 
 function App() {
   return (
-    <div className="h-screen p-1  bg-slate-200 ">
-      <LogoComponent />
-      <Header />
-      <WhereToday />
-      <TitleSection title="Recomendado de hoy" />
-      <CardRestaurant />
-      <Categories />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="" element={<Home />} />
+        </Route>
+        <Route path="registrarse" element={<RegisterForm />} />
+        <Route path="register-success" element={<RegisterSuccess />} />
+        <Route path="login" element={<LoginForm />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
