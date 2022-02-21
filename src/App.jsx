@@ -9,13 +9,11 @@ import RegisterSuccess from './Components/RegisterSuccess';
 import LoginForm from './Components/LoginForm';
 import ProfileModal from './Components/ProfileModal';
 import UploadImagesForm from './Components/UploadImagesForm';
-import MenuComponent from './Components/MenuComponent';
 
 function App() {
   return (
     <BrowserRouter>
       <AppProvider>
-        <MenuComponent />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="" element={<Home />} />

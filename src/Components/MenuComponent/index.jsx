@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable-next-line camelcase */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -14,6 +15,7 @@ const MenuComponent = () => {
   useEffect(() => {
     getUserFromLocalStorage(dispatch);
   }, []);
+  console.log(user);
 
   return (
     <>

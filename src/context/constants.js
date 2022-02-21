@@ -2,3 +2,4 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const GET_USER_FROM_LOCALSTORAGE = 'GET_USER_FROM_LOCALSTORAGE';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_LOADING = 'SET_LOADING';
+export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';

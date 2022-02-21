@@ -1,18 +1,23 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
+import { logOutUser } from '../../context/actions';
+import { useAppDispatch } from '../../context/store';
 import './styles.scss';
+import UploadImagesForm from '../UploadImagesForm';
 
 const ProfileModal = ({ viewState, changeViewState, infoProfile }) => {
+  const [showUpload, setShowUpload] = useState(false);
+  const dispatch = useAppDispatch();
   const closeSessionHandler = () => {
-    localStorage.removeItem('token');
+    logOutUser(dispatch);
     changeViewState(false);
   };
   return (
     <>
       {viewState && (
-        <div className="w-screen h-screen fixed top-0 left-0 bg-opacity-50 bg-black flex items-center justify-center p-10 cursor-none ">
+        <div className="w-screen h-screen fixed top-0 left-0 bg-opacity-50 bg-black flex items-center justify-center p-10 cursor-none flex-col ">
           <div className="w-96 height-min-100px bg-slate-100 relative rounded-md box-shadow-profile p-5">
             {/* header modal */}
             <div className="flex items-center justify-between mb-4 pb-4 border-b border-indigo-400 ">
@@ -43,6 +48,7 @@ const ProfileModal = ({ viewState, changeViewState, infoProfile }) => {
                   <span className="h-full flex place-items-end">
                     Cambiar contraseña
                   </span>
+
                   <button
                     className="text-red-600 flex items-start"
                     onClick={closeSessionHandler}
@@ -54,14 +60,25 @@ const ProfileModal = ({ viewState, changeViewState, infoProfile }) => {
                   {' '}
                   <img
                     className="rounded-full shadow-xl border-2 border-indigo-300 w-28"
-                    src="https://www.exaltedchristchurch.com/wp-content/uploads/2017/02/blank-profile-picture-png-transparent.png"
+                    src={infoProfile.profilePhoto}
                     alt={`foto-perfil-${infoProfile.fullName}`}
                   />
-                  <span>Cambiar Foto</span>
+                  <button
+                    className="text-xs text-gray-500"
+                    onClick={() => setShowUpload(!showUpload)}
+                  >
+                    Cambiar Foto
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+          {showUpload && (
+            <UploadImagesForm
+              showUpload={showUpload}
+              setShowUpload={setShowUpload}
+            />
+          )}
         </div>
       )}
     </>

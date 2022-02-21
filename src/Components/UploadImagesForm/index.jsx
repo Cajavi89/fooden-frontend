@@ -1,9 +1,15 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { useAppDispatch, useAppState } from '../../context/store';
+import uploadImageHandler from '../../services/uploadImage';
+import { updateProfilePhoto } from '../../context/actions';
 
-const UploadImagesForm = () => {
+const UploadImagesForm = ({ showUpload, setShowUpload }) => {
   const [file, setFile] = useState(null);
+  const { user } = useAppState();
+  const dispatch = useAppDispatch();
 
   const onChangeFile = (e) => {
     console.log('onChangee', e.target.files[0]);
@@ -11,68 +17,56 @@ const UploadImagesForm = () => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-
-    formData.append('file', file);
-
-    const result = await axios.post(
-      'http://localhost:3002/api/uploads/file',
-      formData
-    );
-    console.log(result);
+    if (!file) {
+      return null;
+    }
+    const linkPhoto = await uploadImageHandler(file);
+    updateProfilePhoto(dispatch, user.email, linkPhoto);
+    setShowUpload(!showUpload);
   };
 
   return (
     <>
-      <div className="flex justify-center mt-8">
-        <div className="max-w-2xl rounded-lg shadow-xl bg-gray-50">
-          <div className="m-4">
-            <label className="inline-block mb-2 text-gray-500">
-              Subir Imagenes
-            </label>
-            <div className="flex items-center justify-center w-full">
-              <label className="flex flex-col w-full h-32 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                <div className="flex flex-col items-center justify-center pt-7">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-8 h-8 text-gray-400 group-hover:text-gray-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                    />
-                  </svg>
-                  <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                    Click para elegir imagenes
-                  </p>
-                </div>
-                <input
-                  type="file"
-                  className="opacity-0"
-                  accept="image/*"
-                  onChange={onChangeFile}
-                  multiple
-                />
-              </label>
-            </div>
-            {file && (
-              <div className="bg-indigo-700 text-zinc-100 mt-3 text-center">
-                Elegiste una imagen
-              </div>
-            )}
-          </div>
-          <div className="flex justify-center p-2">
+      <div className="flex justify-center bg-white rounded-md mt-2">
+        <div className="mb-3 w-96 p-3">
+          <label
+            htmlFor="formFileSm"
+            className="form-label inline-block mb-2 text-gray-700"
+          >
+            Cambiar foto de perfil
+          </label>
+          <input
+            onChange={onChangeFile}
+            className="form-control
+    block
+    w-full
+    px-2
+    py-1
+    text-sm
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="formFileSm"
+            type="file"
+          />
+          <div className="flex justify-evenly">
             <button
-              className="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl"
+              className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-3 ml-2"
               onClick={onSubmit}
             >
-              Subir
+              Enviar
+            </button>
+            <button
+              className="text-indigo-700 font-bold py-2 px-4 rounded border border-indigo-600 focus:outline-none focus:shadow-outline mt-3 ml-2"
+              onClick={() => setShowUpload(!showUpload)}
+            >
+              Cancelar
             </button>
           </div>
         </div>

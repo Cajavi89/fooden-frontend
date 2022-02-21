@@ -1,8 +1,14 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useReducer, useContext } from 'react';
-import { GET_USER_FROM_LOCALSTORAGE, LOGIN_USER } from './constants';
+import {
+  GET_USER_FROM_LOCALSTORAGE,
+  LOGIN_USER,
+  LOGOUT_USER,
+  SET_LOADING,
+  UPLOAD_IMAGE
+} from './constants';
 
-const AppStateContext = createContext('default');
+const AppStateContext = createContext();
 const AppDispatchContext = createContext();
 
 const initialState = {
@@ -19,14 +25,34 @@ function AppReducer(state, action) {
         ...state,
         user: action.payload
       };
-    case GET_USER_FROM_LOCALSTORAGE:
+    case GET_USER_FROM_LOCALSTORAGE: {
       return {
         ...state,
         user: action.payload
       };
+    }
+    case SET_LOADING: {
+      return {
+        ...state,
+        isLoading: action.payload
+      };
+    }
+    case LOGOUT_USER: {
+      return {
+        ...state,
+        user: action.payload
+      };
+    }
+
+    case UPLOAD_IMAGE: {
+      return {
+        ...state,
+        user: action.payload
+      };
+    }
 
     default:
-      break;
+      throw new Error(`Unhandled action type: ${action.type}`);
   }
 }
 
@@ -43,10 +69,9 @@ const AppProvider = ({ children }) => {
 
 const useAppState = () => {
   const context = useContext(AppStateContext);
-  console.log(context);
-  // if (context === undefined) {
-  //   throw new Error('useAppState must be used within a AppProvider');
-  // }
+  if (context === undefined) {
+    throw new Error('useAppState must be used within a AppProvider');
+  }
 
   return context;
 };

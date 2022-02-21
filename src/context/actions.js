@@ -1,10 +1,17 @@
+/* eslint-disable no-debugger */
+/* eslint-disable prettier/prettier */
 /* eslint-disable camelcase */
 import {
   GET_USER_FROM_LOCALSTORAGE,
   LOGIN_USER,
-  SET_LOADING
+  LOGOUT_USER,
+  SET_LOADING,
+  UPLOAD_IMAGE
 } from './constants';
 import { loginAccount } from '../services/auth';
+import getUserByEmail from '../services/getUserByEmail';
+import updateUser from '../services/updateUser';
+
 import jwt_decode from 'jwt-decode';
 
 export const loginUser = async (dispatch, email, password) => {
@@ -29,5 +36,25 @@ export const getUserFromLocalStorage = (dispatch) => {
   if (token) {
     const decoded = jwt_decode(token);
     dispatch({ type: GET_USER_FROM_LOCALSTORAGE, payload: decoded });
+  }
+};
+
+export const logOutUser = (dispatch) => {
+  localStorage.removeItem('tokenFooden');
+  dispatch({ type: LOGOUT_USER, payload: null });
+};
+
+export const updateProfilePhoto = async (dispatch, userEmail, urlPhoto) => {
+  console.log('AAAAA',userEmail);
+  try {
+    const getUser = await getUserByEmail();
+    const user = await getUser.json();
+    console.log('getUser', user);
+
+    const { _id } = user;
+    const response = await updateUser(_id, { profilePhoto: urlPhoto });
+    dispatch({ type: UPLOAD_IMAGE, payload: response });
+  } catch (error) {
+    console.log(error.message);
   }
 };
