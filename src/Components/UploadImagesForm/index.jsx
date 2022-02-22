@@ -12,7 +12,6 @@ const UploadImagesForm = ({ showUpload, setShowUpload }) => {
   const dispatch = useAppDispatch();
 
   const onChangeFile = (e) => {
-    console.log('onChangee', e.target.files[0]);
     setFile(e.target.files[0]);
   };
   const onSubmit = async (e) => {
@@ -20,7 +19,8 @@ const UploadImagesForm = ({ showUpload, setShowUpload }) => {
     if (!file) {
       return null;
     }
-    const linkPhoto = await uploadImageHandler(file);
+    const myToken = localStorage.getItem('tokenFooden');
+    const linkPhoto = await uploadImageHandler(file, myToken);
     updateProfilePhoto(dispatch, user.email, linkPhoto);
     setShowUpload(!showUpload);
   };

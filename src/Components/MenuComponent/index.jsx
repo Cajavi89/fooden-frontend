@@ -15,7 +15,6 @@ const MenuComponent = () => {
   useEffect(() => {
     getUserFromLocalStorage(dispatch);
   }, []);
-  console.log(user);
 
   return (
     <>
@@ -28,7 +27,7 @@ const MenuComponent = () => {
         viewState={viewLoginModal}
         changeViewState={setviewLoginModal}
       />
-      <ul className="w-64 flex border border-green-400 rounded-lg p-2 gap-5 justify-center ">
+      <ul className="w-64 flex border border-indigo-600 rounded-lg p-2 gap-5 justify-center bg-slate-100">
         <li className="cursor-pointer">
           <Link to="/">Inicio</Link>
         </li>

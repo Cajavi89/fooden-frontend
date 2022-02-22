@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import Category from './Category';
 
 const categories = [
-  'Italiana',
-  'Peruana',
   'Tipica',
-  'Mexicana',
-  'Hamburguesas',
-  'Perros',
-  'Espanola',
-  'China'
+  'Italiana',
+  'Japonesa',
+  'Comida Rapida',
+  'Indu',
+  'Griega',
+  'Peruana',
+  'Argentina',
+  'Otra'
 ];
 
 const Categories = (props) => {

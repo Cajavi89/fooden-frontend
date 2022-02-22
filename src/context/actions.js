@@ -45,16 +45,20 @@ export const logOutUser = (dispatch) => {
 };
 
 export const updateProfilePhoto = async (dispatch, userEmail, urlPhoto) => {
-  console.log('AAAAA',userEmail);
   try {
-    const getUser = await getUserByEmail();
+    const getUser = await getUserByEmail(userEmail);
     const user = await getUser.json();
-    console.log('getUser', user);
-
+    const validateToken = localStorage.getItem('tokenFooden');
     const { _id } = user;
-    const response = await updateUser(_id, { profilePhoto: urlPhoto });
-    dispatch({ type: UPLOAD_IMAGE, payload: response });
-  } catch (error) {
+    const response = await updateUser(_id, urlPhoto,validateToken);
+    const token = await response.json();
+    if(response.ok){
+      localStorage.setItem('tokenFooden', token);
+      const decoded = jwt_decode(token);
+      dispatch({ type: UPLOAD_IMAGE, payload: decoded });
+    }
+  }catch (error) {
     console.log(error.message);
   }
 };
+

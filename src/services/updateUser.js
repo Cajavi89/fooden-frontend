@@ -1,10 +1,11 @@
-const updateUser = (id, infoToUpdate) => {
+const updateUser = (id, profilePhoto, token) => {
   const payload = {
-    method: 'POST',
+    method: 'PATCH',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
     },
-    body: JSON.stringify({ infoToUpdate })
+    body: JSON.stringify({ profilePhoto })
   };
 
   return fetch(`http://localhost:3002/api/users/${id}`, payload);

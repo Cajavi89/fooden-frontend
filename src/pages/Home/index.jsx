@@ -6,7 +6,7 @@ import WhereToday from '../../Components/WhereToday';
 
 function App() {
   return (
-    <div className="h-screen p-1  bg-slate-200 ">
+    <div className="p-1  bg-slate-200 ">
       <WhereToday />
       <TitleSection title="Recomendado de hoy" />
       <CardRestaurant />

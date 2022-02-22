@@ -6,9 +6,8 @@ import Layout from './pages/Layout';
 import Home from './pages/Home';
 import RegisterForm from './Components/RegisterForm';
 import RegisterSuccess from './Components/RegisterSuccess';
-import LoginForm from './Components/LoginForm';
 import ProfileModal from './Components/ProfileModal';
-import UploadImagesForm from './Components/UploadImagesForm';
+import NewRestaurantForm from './Components/NewRestaurantForm';
 
 function App() {
   return (
@@ -21,8 +20,7 @@ function App() {
           </Route>
           <Route path="registrarse" element={<RegisterForm />} />
           <Route path="register-success" element={<RegisterSuccess />} />
-          <Route path="login" element={<LoginForm />} />
-          <Route path="atachimages" element={<UploadImagesForm />} />
+          <Route path="registrar-restaurante" element={<NewRestaurantForm />} />
         </Routes>
       </AppProvider>
     </BrowserRouter>
