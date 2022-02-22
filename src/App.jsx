@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AppProvider } from './context/store';
@@ -8,8 +8,13 @@ import RegisterForm from './Components/RegisterForm';
 import RegisterSuccess from './Components/RegisterSuccess';
 import ProfileModal from './Components/ProfileModal';
 import NewRestaurantForm from './Components/NewRestaurantForm';
+import { getAllRestaurantsHandler } from './context/actions';
 
 function App() {
+  useEffect(() => {
+    getAllRestaurantsHandler();
+  }, []);
+
   return (
     <BrowserRouter>
       <AppProvider>

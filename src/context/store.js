@@ -5,7 +5,8 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   SET_LOADING,
-  UPLOAD_IMAGE
+  UPLOAD_IMAGE,
+  GET_ALL_RESTAURANTS
 } from './constants';
 
 const AppStateContext = createContext();
@@ -48,6 +49,13 @@ function AppReducer(state, action) {
       return {
         ...state,
         user: action.payload
+      };
+    }
+
+    case GET_ALL_RESTAURANTS: {
+      return {
+        ...state,
+        restaurants: action.payload
       };
     }
 

@@ -6,6 +6,7 @@ import { logOutUser } from '../../context/actions';
 import { useAppDispatch } from '../../context/store';
 import './styles.scss';
 import UploadImagesForm from '../UploadImagesForm';
+import { Link } from 'react-router-dom';
 
 const ProfileModal = ({ viewState, changeViewState, infoProfile }) => {
   const [showUpload, setShowUpload] = useState(false);
@@ -39,12 +40,17 @@ const ProfileModal = ({ viewState, changeViewState, infoProfile }) => {
               </button>
             </div>
             <div>
-              <div className="parent flex p-3 ">
+              <div className="parent flex p-3 h-48">
                 <div className="div1 flex flex-col">
                   <span className="text-indigo-600">
                     {infoProfile.fullName}
                   </span>
                   <span>{infoProfile.email}</span>
+                  <span className="h-full flex place-items-end">
+                    <Link to="registrar-restaurante">
+                      Registrar Restaurante
+                    </Link>
+                  </span>
                   <span className="h-full flex place-items-end">
                     Cambiar contraseña
                   </span>

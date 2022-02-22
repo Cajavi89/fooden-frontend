@@ -6,13 +6,15 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   SET_LOADING,
-  UPLOAD_IMAGE
+  UPLOAD_IMAGE,
+  GET_ALL_RESTAURANTS
 } from './constants';
 import { loginAccount } from '../services/auth';
 import getUserByEmail from '../services/getUserByEmail';
 import updateUser from '../services/updateUser';
 
 import jwt_decode from 'jwt-decode';
+import getAllRestaurants from '../services/getAllRestaurants';
 
 export const loginUser = async (dispatch, email, password) => {
   dispatch({ type: SET_LOADING, payload: true });
@@ -62,3 +64,9 @@ export const updateProfilePhoto = async (dispatch, userEmail, urlPhoto) => {
   }
 };
 
+export const getAllRestaurantsHandler = async (dispatch) => {
+  const getRestaurants = await getAllRestaurants();
+  const response = await getRestaurants.json();
+  dispatch({ type:GET_ALL_RESTAURANTS, payload: response })
+
+};
