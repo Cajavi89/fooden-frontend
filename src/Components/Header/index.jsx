@@ -4,7 +4,7 @@ import './styles.scss';
 
 const Header = () => {
   return (
-    <header className=" m-1 w-full flex justify-center items-center  z-50">
+    <header className=" m-3 w-full flex justify-center items-center  z-50">
       <MenuComponent />
     </header>
   );

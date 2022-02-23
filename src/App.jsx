@@ -10,6 +10,7 @@ import ProfileModal from './Components/ProfileModal';
 import NewRestaurantForm from './Components/NewRestaurantForm';
 import SearchResults from './Components/SearchResults';
 import RestaurantDetails from './Components/RestaurantDetails';
+import ReviewsComponent from './Components/ReviewsComponent';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="" element={<Home />} />
             <Route path="profile" element={<ProfileModal />} />
+            <Route path="reviews" element={<ReviewsComponent />} />
             <Route path="searchResults/:search" element={<SearchResults />} />
             <Route
               path="restaurant-details/:restaurantId"
