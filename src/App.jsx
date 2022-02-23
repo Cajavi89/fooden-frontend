@@ -9,6 +9,7 @@ import RegisterSuccess from './Components/RegisterSuccess';
 import ProfileModal from './Components/ProfileModal';
 import NewRestaurantForm from './Components/NewRestaurantForm';
 import SearchResults from './Components/SearchResults';
+import RestaurantDetails from './Components/RestaurantDetails';
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
             <Route path="" element={<Home />} />
             <Route path="profile" element={<ProfileModal />} />
             <Route path="searchResults/:search" element={<SearchResults />} />
+            <Route
+              path="restaurant-details/:restaurantId"
+              element={<RestaurantDetails />}
+            />
           </Route>
           <Route path="registrarse" element={<RegisterForm />} />
           <Route path="register-success" element={<RegisterSuccess />} />

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppState } from '../../context/store';
-// import filterData from '../../services/filterData';
 import CategoryListItems from '../CategoryListItems';
+import './styles.scss';
 
 const SearchResults = () => {
   const { search } = useParams();
@@ -12,7 +12,7 @@ const SearchResults = () => {
     ({ foodType }) => foodType.toLowerCase() === search.toLocaleLowerCase()
   );
   return (
-    <div className="h-96">
+    <div className="min-height-comp mb-6">
       <h2 className="m-4 text-lg text-indigo-600">{`Restaurantes filtrados por : ${search}`}</h2>
       <h2>
         {filtered?.map((restaurant) => {

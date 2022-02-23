@@ -1,3 +1,15 @@
 .width-image {
   width: 600px;
 }
+
+.c-card {
+  img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+  }
+}

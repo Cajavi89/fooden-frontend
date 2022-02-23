@@ -1,43 +1,43 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import './styles.scss';
-import { useAppState, useAppDispatch } from '../../context/store';
-import { getAllRestaurantsHandler } from '../../context/actions';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppState } from '../../context/store';
 import Loader from '../Loader';
 
-const CardRestaurant = () => {
-  const dispatch = useAppDispatch();
+const RestaurantDetails = () => {
   const state = useAppState();
-  const restaurant = state.restaurants[0];
+  const { restaurantId } = useParams();
+  const { restaurants } = state;
 
-  useEffect(() => {
-    getAllRestaurantsHandler(dispatch);
-  }, []);
+  if (!state) {
+    return (
+      <button className="p-1 text-lg text-indigo-600 cursor-pointer">
+        Hacer otra busqueda
+      </button>
+    );
+  }
+  const restaurant = restaurants?.find(
+    (restaurant) => restaurant._id === restaurantId
+  );
+
+  const { nameRestaurant, phone, photo, foodType, neighborhood, address } =
+    restaurant;
 
   return (
-    // import filterData from '../../services/filterData';
     <div className="w-full p-2">
       <div className="flex w-full">
         {/* CONTENEDOR PRINCIPAL */}
         <div className="w-full flex">
-          <Link
-            to="/"
-            className="c-card block w-full bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden"
-          >
+          <div className="c-card block w-full bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
             {!restaurant && <Loader />}
             <div className="relative pb-48 overflow-hidden">
               <img
                 className="absolute inset-0 width-image object-cover "
-                src={restaurant?.photo}
-                alt={restaurant?.nameRestaurant}
+                src={photo}
+                alt={nameRestaurant}
               />
             </div>
             <div className="p-4">
-              <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">
-                Recomendado
-              </span>
-              <h2 className="mt-2 font-bold">{restaurant?.nameRestaurant}</h2>
+              <h2 className="mt-2 font-bold">{nameRestaurant}</h2>
               <div className="flex">
                 <span>
                   <svg
@@ -52,7 +52,7 @@ const CardRestaurant = () => {
                     <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                   </svg>
                 </span>
-                <span className="text-xs italic">{`${restaurant?.address}`}</span>
+                <span className="text-xs italic">{`${address}`}</span>
               </div>
               {/* <p className="text-sm">
                 Cras justo odio, dapibus ac facilisis in, egestas eget quam.
@@ -62,7 +62,7 @@ const CardRestaurant = () => {
                 &nbsp;
                 <span className="text-xs ml-1">{`Tipo de comida: `}</span>
                 <span className="text-sm capitalize text-indigo-700 ml-2">
-                  {restaurant?.foodType}
+                  {foodType}
                 </span>
               </div>
             </div>
@@ -87,7 +87,7 @@ const CardRestaurant = () => {
                     />
                   </svg>
                 </span>{' '}
-                {`Barrio: ${restaurant?.neighborhood}`}
+                {`Barrio: ${neighborhood}`}
               </span>
               <span className="flex items-center">
                 <span className="mr-3">
@@ -103,7 +103,7 @@ const CardRestaurant = () => {
                     <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                   </svg>
                 </span>{' '}
-                {`Contacto: ${restaurant?.phone}`}
+                {`Contacto: ${phone}`}
               </span>
             </div>
             <div className="p-4 flex items-center text-sm text-gray-600">
@@ -144,15 +144,11 @@ const CardRestaurant = () => {
               </svg>
               <span className="ml-2">34 calificaciones</span>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-CardRestaurant.propTypes = {
-  props: PropTypes.object
-};
-
-export default CardRestaurant;
+export default RestaurantDetails;
