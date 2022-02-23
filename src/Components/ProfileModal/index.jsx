@@ -18,7 +18,7 @@ const ProfileModal = ({ viewState, changeViewState, infoProfile }) => {
   return (
     <>
       {viewState && (
-        <div className="w-screen h-screen fixed top-0 left-0 bg-opacity-50 bg-black flex items-center justify-center p-10 cursor-none flex-col ">
+        <div className="w-screen h-screen fixed top-0 left-0 bg-opacity-50 bg-black flex items-center justify-center p-10 cursor-none flex-col z-50 ">
           <div className="w-96 h-72 bg-slate-100 relative rounded-md box-shadow-profile p-5">
             {/* header modal */}
             <div className="flex items-center justify-between mb-4 pb-4 border-b border-indigo-400 ">
