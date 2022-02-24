@@ -7,8 +7,8 @@ const updateUser = (id, profilePhoto, token) => {
     },
     body: JSON.stringify({ profilePhoto })
   };
-
-  return fetch(`http://localhost:3002/api/users/${id}`, payload);
+  const baseURL = process.env.REACT_APP_API_URL;
+  return fetch(`${baseURL}/users/${id}`, payload);
 };
 
 export default updateUser;

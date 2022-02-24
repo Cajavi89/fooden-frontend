@@ -1,5 +1,4 @@
 /* eslint-disable no-debugger */
-const URL_BASE = 'http://localhost:3002/api';
 const getUserByEmail = (email) => {
   const payload = {
     method: 'POST',
@@ -10,7 +9,8 @@ const getUserByEmail = (email) => {
       email
     })
   };
-  return fetch(`${URL_BASE}/users/userEmail`, payload);
+  const baseURL = process.env.REACT_APP_API_URL;
+  return fetch(`${baseURL}/users/userEmail`, payload);
 };
 
 export default getUserByEmail;

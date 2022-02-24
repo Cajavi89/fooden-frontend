@@ -1,4 +1,3 @@
-const URL_BASE = 'http://localhost:3002/api';
 const getAllRestaurants = () => {
   const payload = {
     method: 'GET',
@@ -6,7 +5,9 @@ const getAllRestaurants = () => {
       'Content-Type': 'application/json'
     }
   };
-  return fetch(`${URL_BASE}/restaurants`, payload);
+  const baseURL = process.env.REACT_APP_API_URL;
+
+  return fetch(`${baseURL}/restaurants`, payload);
 };
 
 export default getAllRestaurants;

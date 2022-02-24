@@ -22,7 +22,7 @@ const CardRestaurant = () => {
         {/* CONTENEDOR PRINCIPAL */}
         <div className="w-full flex">
           <Link
-            to="/"
+            to="/restaurant-details/62146a3565c60e52fb2b908b"
             className="c-card block w-full bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden"
           >
             {!restaurant && <Loader />}

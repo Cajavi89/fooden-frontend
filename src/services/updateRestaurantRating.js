@@ -6,8 +6,9 @@ const updateRestaurantRating = (id, rating) => {
     },
     body: JSON.stringify({ rating })
   };
+  const baseURL = process.env.REACT_APP_API_URL;
 
-  return fetch(`http://localhost:3002/api/restaurants/${id}`, payload);
+  return fetch(`${baseURL}/restaurants/${id}`, payload);
 };
 
 export default updateRestaurantRating;

@@ -97,9 +97,11 @@ export const getRestaurantByIdHandler = async (dispatch,id) =>{
     const data = await response.json()
     if(response.ok){
       dispatch({type: SET_CURRENT_RESTAURANT,payload:data})
+    }else{
+      console.log('issues detected')
     }
   } catch (error) {
-    return error.message
+    console.log('hubo un error')
   }
 };
 

@@ -1,5 +1,3 @@
-const URL_BASE = 'http://localhost:3002/api';
-
 const createRestaurant = (
   { nameRestaurant, address, neighborhood, phone, foodType },
   photo,
@@ -20,8 +18,8 @@ const createRestaurant = (
       photo
     })
   };
-
-  return fetch(`${URL_BASE}/restaurants`, payload);
+  const baseURL = process.env.REACT_APP_API_URL;
+  return fetch(`${baseURL}/restaurants`, payload);
 };
 
 export default createRestaurant;

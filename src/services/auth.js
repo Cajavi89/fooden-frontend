@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-catch */
-const URL_BASE = 'http://localhost:3002/api';
 
 const loginAccount = (email, password) => {
   const payload = {
@@ -9,7 +8,8 @@ const loginAccount = (email, password) => {
     },
     body: JSON.stringify({ email, password })
   };
-  return fetch(`${URL_BASE}/users/login`, payload);
+  const baseURL = process.env.REACT_APP_API_URL;
+  return fetch(`${baseURL}/users/login`, payload);
 };
 
 export { loginAccount };

@@ -6,8 +6,8 @@ const updateRestaurantCommments = (id, comment, user) => {
     },
     body: JSON.stringify({ comment, user })
   };
-
-  return fetch(`http://localhost:3002/api/restaurants/${id}`, payload);
+  const baseURL = process.env.REACT_APP_API_URL;
+  return fetch(`${baseURL}/restaurants/${id}`, payload);
 };
 
 export default updateRestaurantCommments;

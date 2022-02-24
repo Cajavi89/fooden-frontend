@@ -6,7 +6,8 @@ const getRestaurantByIdFromDB = (id) => {
     }
   };
 
-  return fetch(`http://localhost:3002/api/restaurants/${id}`, payload);
+  const baseURL = process.env.REACT_APP_API_URL;
+  return fetch(`${baseURL}/restaurants/${id}`, payload);
 };
 
 export default getRestaurantByIdFromDB;
