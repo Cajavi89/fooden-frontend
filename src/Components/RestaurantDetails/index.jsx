@@ -1,26 +1,24 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-debugger */
+/* eslint-disable prettier/prettier */
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppState } from '../../context/store';
+import { useAppState, useAppDispatch } from '../../context/store';
 import Loader from '../Loader';
 import { Rating } from 'react-simple-star-rating';
 import ReviewsComponent from '../ReviewsComponent';
 import './styles.scss';
+import { getRestaurantByIdHandler } from '../../context/actions';
 
 const RestaurantDetails = () => {
   const state = useAppState();
+  const dispatch = useAppDispatch();
   const { restaurantId } = useParams();
-  const { restaurants } = state;
+  const { currentRestaurant } = state;
 
-  if (!state) {
-    return (
-      <button className="p-1 text-lg text-indigo-600 cursor-pointer">
-        Hacer otra busqueda
-      </button>
-    );
-  }
-  const restaurant = restaurants?.find(
-    (restaurant) => restaurant._id === restaurantId
-  );
+  useEffect(async()=>{
+    getRestaurantByIdHandler(dispatch,restaurantId)
+    },[restaurantId])
 
   const {
     nameRestaurant,
@@ -30,8 +28,10 @@ const RestaurantDetails = () => {
     neighborhood,
     address,
     rating,
-    ratingTimes
-  } = restaurant;
+    ratingTimes,
+    _id,
+    reviews
+  } = currentRestaurant;
   const promRatings = rating / ratingTimes;
 
   return (
@@ -40,7 +40,7 @@ const RestaurantDetails = () => {
         {/* CONTENEDOR PRINCIPAL */}
         <div className="w-full flex">
           <div className="c-card block w-full bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
-            {!restaurant && <Loader />}
+            {!currentRestaurant && <Loader />}
             <div className="relative pb-48 overflow-hidden">
               <img
                 className="absolute inset-0 width-image object-cover "
@@ -125,7 +125,7 @@ const RestaurantDetails = () => {
           </div>
         </div>
       </div>
-      <ReviewsComponent />
+      <ReviewsComponent props={({ _id, reviews, nameRestaurant})} />
     </div>
   );
 };

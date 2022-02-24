@@ -6,7 +6,10 @@ import {
   LOGOUT_USER,
   SET_LOADING,
   UPLOAD_IMAGE,
-  GET_ALL_RESTAURANTS
+  GET_ALL_RESTAURANTS,
+  SET_REVIEW,
+  SET_RATING,
+  SET_CURRENT_RESTAURANT
 } from './constants';
 
 const AppStateContext = createContext();
@@ -16,7 +19,7 @@ const initialState = {
   isLoading: false,
   user: null,
   restaurants: [],
-  currentRestaurant: null
+  currentRestaurant: {}
 };
 
 function AppReducer(state, action) {
@@ -56,6 +59,27 @@ function AppReducer(state, action) {
       return {
         ...state,
         restaurants: action.payload
+      };
+    }
+
+    case SET_REVIEW: {
+      return {
+        ...state,
+        currentRestaurant: action.payload
+      };
+    }
+
+    case SET_CURRENT_RESTAURANT: {
+      return {
+        ...state,
+        currentRestaurant: action.payload
+      };
+    }
+
+    case SET_RATING: {
+      return {
+        ...state,
+        currentRestaurant: action.payload
       };
     }
 

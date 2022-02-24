@@ -4,3 +4,6 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_LOADING = 'SET_LOADING';
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 export const GET_ALL_RESTAURANTS = 'GET_ALL_RESTAURANTS';
+export const SET_REVIEW = 'SET_REVIEW';
+export const SET_RATING = 'SET_RATING';
+export const SET_CURRENT_RESTAURANT = 'SET_CURRENT_RESTAURANT';

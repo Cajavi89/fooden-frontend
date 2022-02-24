@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const WhereToday = () => {
   const [search, setSearch] = useState(null);
+  const navigating = useNavigate();
 
   const onChangeHandler = (e) => {
     const searchTyped = e.target.value;
@@ -10,6 +11,7 @@ const WhereToday = () => {
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    navigating(`/searchResults/${search}`);
   };
   return (
     <form onSubmit={onSubmitHandler} className="flex justify-center">

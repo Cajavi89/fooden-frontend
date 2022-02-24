@@ -7,14 +7,20 @@ import {
   LOGOUT_USER,
   SET_LOADING,
   UPLOAD_IMAGE,
-  GET_ALL_RESTAURANTS
+  GET_ALL_RESTAURANTS,
+  SET_REVIEW,
+  SET_CURRENT_RESTAURANT,
+  SET_RATING
 } from './constants';
 import { loginAccount } from '../services/auth';
 import getUserByEmail from '../services/getUserByEmail';
 import updateUser from '../services/updateUser';
+import getRestaurantByIdFromDB from '../services/getRestaurantByIdFromDB'
 
 import jwt_decode from 'jwt-decode';
 import getAllRestaurants from '../services/getAllRestaurants';
+import updateRestaurantCommments from '../services/updateRestaurantComments';
+import updateRestaurantRating from '../services/updateRestaurantRating';
 
 export const loginUser = async (dispatch, email, password) => {
   dispatch({ type: SET_LOADING, payload: true });
@@ -65,8 +71,46 @@ export const updateProfilePhoto = async (dispatch, userEmail, urlPhoto) => {
 };
 
 export const getAllRestaurantsHandler = async (dispatch) => {
-  const getRestaurants = await getAllRestaurants();
-  const response = await getRestaurants.json();
-  dispatch({ type:GET_ALL_RESTAURANTS, payload: response })
+  try {
+    const getRestaurants = await getAllRestaurants();
+    const response = await getRestaurants.json();
+    dispatch({ type:GET_ALL_RESTAURANTS, payload: response })
+  } catch (error) {
+    return error.message
+  }
 
+};
+
+export const updateReviewHandler = async (dispatch, restaurantId, comment,fullName) =>{
+  try {
+    const response = await updateRestaurantCommments(restaurantId,comment,fullName);
+    const data = await response.json()
+    dispatch({type: SET_REVIEW, payload:data})
+  } catch (error) {
+    return error.message
+  }
+}
+
+export const getRestaurantByIdHandler = async (dispatch,id) =>{
+  try {
+    const response = await getRestaurantByIdFromDB(id);
+    const data = await response.json()
+    if(response.ok){
+      dispatch({type: SET_CURRENT_RESTAURANT,payload:data})
+    }
+  } catch (error) {
+    return error.message
+  }
+};
+
+export const updateRatingHandler = async (dispatch, id, rating) => {
+  try {
+    const response = await updateRestaurantRating(id, rating);
+    const data = await response.json();
+    if(response.ok){
+      dispatch({type:SET_RATING, payload: data})
+    }
+  } catch (error) {
+    return error.message
+  }
 };

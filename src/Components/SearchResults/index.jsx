@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppState } from '../../context/store';
+import { getAllRestaurantsHandler } from '../../context/actions';
+import { useAppState, useAppDispatch } from '../../context/store';
 import CategoryListItems from '../CategoryListItems';
+import Loader from '../Loader';
 import './styles.scss';
 
 const SearchResults = () => {
-  const { search } = useParams();
+  const { search = 'italiana' } = useParams();
+  const dispatch = useAppDispatch();
   const state = useAppState();
   const { restaurants } = state;
-  const filtered = restaurants.filter(
-    ({ foodType }) => foodType.toLowerCase() === search.toLocaleLowerCase()
-  );
+  useEffect(() => {
+    getAllRestaurantsHandler(dispatch);
+  }, []);
+
   return (
     <div className="min-height-comp mb-6">
       <h2 className="m-4 text-lg text-indigo-600">{`Restaurantes filtrados por : ${search}`}</h2>
-      <h2>
-        {filtered?.map((restaurant) => {
-          return <CategoryListItems key={Math.random()} props={restaurant} />;
-        })}
-      </h2>
+      <div>
+        {!restaurants && <Loader />}
+        {restaurants
+          ?.filter(
+            ({ foodType }) =>
+              foodType.toLowerCase() === search.toLocaleLowerCase()
+          )
+          .map((restaurant) => {
+            return <CategoryListItems key={Math.random()} props={restaurant} />;
+          })}
+      </div>
     </div>
   );
 };
