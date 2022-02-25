@@ -120,7 +120,7 @@ const RestaurantDetails = () => {
             </div>
             <div className="p-4 flex items-center text-sm text-gray-600">
               <Rating ratingValue={promRatings} readonly />
-              <span className="ml-2">{`Promedio de ${ratingTimes} calificaciones`}</span>
+              <span className="ml-2">{ratingTimes ? `Promedio de ${ratingTimes} calificaciones` : 'Aun no tenemos calificaciones de este lugar.'}</span>
             </div>
           </div>
         </div>

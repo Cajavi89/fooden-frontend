@@ -216,7 +216,7 @@ const NewRestaurantForm = () => {
                     name="foodType"
                     as="select"
                   >
-                    <option defaultValue="tipica">Tipica Colombiana</option>
+                    <option Value="tipica">Tipica Colombiana</option>
                     <option value="rapida">Comida Rapida</option>
                     <option value="italiana">Italiana</option>
                     <option value="japonesa">Japonesa</option>
